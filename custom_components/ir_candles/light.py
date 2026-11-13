@@ -39,7 +39,6 @@ class IRCandlesLight(IRCandlesEntity, LightEntity, RestoreEntity):
     """IR Candles candle — light entity."""
 
     _attr_color_mode = ColorMode.BRIGHTNESS
-    _attr_supported_color_modes = {ColorMode.BRIGHTNESS}
     _attr_assumed_state = True
     _attr_icon = "mdi:candle"
     # Main entity for the device — name comes from the device name alone
@@ -50,6 +49,7 @@ class IRCandlesLight(IRCandlesEntity, LightEntity, RestoreEntity):
         super().__init__(entry, infrared_entity_id, unique_id_suffix="light")
         self._attr_is_on = False
         self._attr_brightness: int = 255
+        self._attr_supported_color_modes = {ColorMode.BRIGHTNESS}
 
     async def async_added_to_hass(self) -> None:
         """Restore last known state on startup."""

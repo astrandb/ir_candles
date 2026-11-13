@@ -23,36 +23,48 @@ class IRCandlesButtonDescription(ButtonEntityDescription):
 
 
 BUTTON_DESCRIPTIONS: tuple[IRCandlesButtonDescription, ...] = (
+    # IRCandlesButtonDescription(
+    #     key="brightness_up",
+    #     translation_key="brightness_up",
+    #     icon="mdi:brightness-7",
+    #     command_code=IRCandlesCode.BRIGHTNESS_UP,
+    # ),
+    # IRCandlesButtonDescription(
+    #     key="brightness_down",
+    #     translation_key="brightness_down",
+    #     icon="mdi:brightness-5",
+    #     command_code=IRCandlesCode.BRIGHTNESS_DOWN,
+    # ),
     IRCandlesButtonDescription(
-        key="brightness_up",
-        translation_key="brightness_up",
-        icon="mdi:brightness-7",
-        command_code=IRCandlesCode.BRIGHTNESS_UP,
+        key="flickering",
+        translation_key="flickering",
+        icon="mdi:lightbulb-on-outline",
+        command_code=IRCandlesCode.FLICKERING,
     ),
     IRCandlesButtonDescription(
-        key="brightness_down",
-        translation_key="brightness_down",
-        icon="mdi:brightness-5",
-        command_code=IRCandlesCode.BRIGHTNESS_DOWN,
+        key="steady",
+        translation_key="steady",
+        icon="mdi:lightbulb-outline",
+        command_code=IRCandlesCode.STEADY,
     ),
-    IRCandlesButtonDescription(
-        key="timer_2h",
-        translation_key="timer_2h",
-        icon="mdi:timer-outline",
-        command_code=IRCandlesCode.TIMER_2H,
-    ),
+    # IRCandlesButtonDescription(
+    #     key="timer_2h",
+    #     translation_key="timer_2h",
+    #     icon="mdi:timer-outline",
+    #     command_code=IRCandlesCode.TIMER_2H,
+    # ),
     IRCandlesButtonDescription(
         key="timer_4h",
         translation_key="timer_4h",
         icon="mdi:timer-outline",
         command_code=IRCandlesCode.TIMER_4H,
     ),
-    IRCandlesButtonDescription(
-        key="timer_6h",
-        translation_key="timer_6h",
-        icon="mdi:timer-outline",
-        command_code=IRCandlesCode.TIMER_6H,
-    ),
+    # IRCandlesButtonDescription(
+    #     key="timer_6h",
+    #     translation_key="timer_6h",
+    #     icon="mdi:timer-outline",
+    #     command_code=IRCandlesCode.TIMER_6H,
+    # ),
     IRCandlesButtonDescription(
         key="timer_8h",
         translation_key="timer_8h",
