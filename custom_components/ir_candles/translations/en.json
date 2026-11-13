@@ -25,6 +25,12 @@
       "brightness_down": {
         "name": "Brightness down"
       },
+      "flickering": {
+        "name": "Flickering"
+      },
+      "steady": {
+        "name": "Steady"
+      },
       "timer_2h": {
         "name": "Timer 2H"
       },
