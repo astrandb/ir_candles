@@ -1,0 +1,88 @@
+name-template: "Example title - v2026.11.0"
+tag-template: "v2026.11.0"
+
+categories:
+  - title: "New Features"
+    when:
+      labels:
+        - "feature"
+        - "enhancement"
+  - title: "Breaking changes"
+    when:
+      labels:
+        - "breaking"
+  - title: "Bug fixes"
+    when:
+      labels:
+        - "fix"
+        - "bugfix"
+        - "bug"
+  - title: "Translation"
+    collapse-after: 2
+    when:
+      labels:
+        - "translation"
+  - title: "Dependencies"
+    collapse-after: 2
+    when:
+      labels:
+        - "dependencies"
+        - "dependency"
+  - title: "Maintenance"
+    when:
+      label: "maintenance"
+  - title: "Code quality and optimizations"
+    when:
+      label: "code quality"
+  - title: "Development tools"
+    when:
+      labels:
+        - "development tools"
+        - "dev-tools"
+  - type: "pre-exclude"
+    when:
+      label: "skip-changelog"
+
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+
+template: |
+  [![Downloads for this release](https://img.shields.io/github/downloads-pre/$OWNER/$REPOSITORY/v2026.11.0/total.svg)](
+  https://github.com/$OWNER/$REPOSITORY/releases/v2026.11.0)
+
+  <!--
+  ### Checklist for release
+  - Download translations PR from Lokalise
+  - Run ruff linter
+  - Run make bump - select proper variant in Makefile
+  - Review the draft below and update if needed
+  -->
+
+  ## Notable Changes
+
+  $CHANGES
+
+autolabeler:
+  - label: "maintenance"
+    files:
+      - "*.md"
+      - ".github/*"
+      - ".ruff.toml"
+      - ".pre-commit-config.yaml"
+  - label: "bugfix"
+    title:
+      - "/fix/i"
+  - label: "code quality"
+    title:
+      - "lint"
+  - label: "translation"
+    title:
+      - "Lokalise:"
+    files:
+      - "**/translations/*.json"
+  - label: "development tools"
+    files:
+      - ".devcontainer/*"
+      - ".devcontainer.json"
+      - "Makefile"
+      - "setup.cfg"
