@@ -1,6 +1,6 @@
 colorlog==6.12.0
 pre-commit==4.7.0
-ruff==0.17.3
+ruff==0.17.4
 bumpver==2026.1132
 infrared_protocols
 homeassistant
