@@ -5,10 +5,12 @@
         "title": "IR Candles",
         "description": "Select the infrared emitter entity to use for controlling the IR Candles.",
         "data": {
-          "infrared_entity_id": "Infrared emitter"
+          "infrared_entity_id": "Infrared emitter",
+          "remote_model": "Remote model"
         },
         "data_description": {
-          "infrared_entity_id": "The infrared transmitter entity (e.g. a BroadLink or ESPHome device registered with the infrared integration)."
+          "infrared_entity_id": "The infrared transmitter entity (e.g. a BroadLink or ESPHome device registered with the infrared integration).",
+          "remote_model": "The remote control model to use for the IR Candles."
         }
       }
     },
@@ -42,6 +44,14 @@
       },
       "timer_8h": {
         "name": "Timer 8H"
+      }
+    }
+  },
+  "selector": {
+    "remote_model": {
+      "options": {
+        "six_buttons": "Six buttons",
+        "ten_buttons_rusta": "Ten buttons (Rusta)"
       }
     }
   }

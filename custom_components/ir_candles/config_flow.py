@@ -13,9 +13,15 @@ from homeassistant.components.infrared import (
 )
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.helpers import entity_registry as er
-from homeassistant.helpers.selector import EntitySelector, EntitySelectorConfig
+from homeassistant.helpers.selector import (
+    EntitySelector,
+    EntitySelectorConfig,
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
+)
 
-from .const import CONF_INFRARED_ENTITY_ID, DOMAIN
+from .const import CONF_INFRARED_ENTITY_ID, CONF_REMOTE_MODEL, DOMAIN, REMOTES
 
 
 class IRCandlesConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -33,8 +39,9 @@ class IRCandlesConfigFlow(ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             entity_id = user_input[CONF_INFRARED_ENTITY_ID]
+            remote_model = user_input[CONF_REMOTE_MODEL]
 
-            await self.async_set_unique_id(f"ir_candles_{entity_id}")
+            await self.async_set_unique_id(f"ir_candles_{entity_id}_{remote_model}")
             self._abort_if_unique_id_configured()
 
             ent_reg = er.async_get(self.hass)
@@ -46,10 +53,19 @@ class IRCandlesConfigFlow(ConfigFlow, domain=DOMAIN):
 
             return self.async_create_entry(title=title, data=user_input)
 
+        remotes_list = list(REMOTES.keys())
         return self.async_show_form(
             step_id="user",
             data_schema=probatio.Schema(
                 {
+                    probatio.Required(CONF_REMOTE_MODEL): SelectSelector(
+                        SelectSelectorConfig(
+                            options=remotes_list,
+                            translation_key="remote_model",
+                            mode=SelectSelectorMode.DROPDOWN,
+                            sort=True,
+                        )
+                    ),
                     probatio.Required(CONF_INFRARED_ENTITY_ID): EntitySelector(
                         EntitySelectorConfig(
                             domain=INFRARED_DOMAIN,

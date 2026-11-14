@@ -9,7 +9,12 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import CONF_INFRARED_ENTITY_ID, IRCandlesCode
+from .const import (
+    CONF_INFRARED_ENTITY_ID,
+    CONF_REMOTE_MODEL,
+    REMOTES,
+    IRCandlesCode,
+)
 from .entity import IRCandlesEntity
 
 PARALLEL_UPDATES = 1
@@ -23,18 +28,18 @@ class IRCandlesButtonDescription(ButtonEntityDescription):
 
 
 BUTTON_DESCRIPTIONS: tuple[IRCandlesButtonDescription, ...] = (
-    # IRCandlesButtonDescription(
-    #     key="brightness_up",
-    #     translation_key="brightness_up",
-    #     icon="mdi:brightness-7",
-    #     command_code=IRCandlesCode.BRIGHTNESS_UP,
-    # ),
-    # IRCandlesButtonDescription(
-    #     key="brightness_down",
-    #     translation_key="brightness_down",
-    #     icon="mdi:brightness-5",
-    #     command_code=IRCandlesCode.BRIGHTNESS_DOWN,
-    # ),
+    IRCandlesButtonDescription(
+        key="brightness_up",
+        translation_key="brightness_up",
+        icon="mdi:brightness-7",
+        command_code=IRCandlesCode.BRIGHTNESS_UP,
+    ),
+    IRCandlesButtonDescription(
+        key="brightness_down",
+        translation_key="brightness_down",
+        icon="mdi:brightness-5",
+        command_code=IRCandlesCode.BRIGHTNESS_DOWN,
+    ),
     IRCandlesButtonDescription(
         key="flickering",
         translation_key="flickering",
@@ -47,24 +52,24 @@ BUTTON_DESCRIPTIONS: tuple[IRCandlesButtonDescription, ...] = (
         icon="mdi:lightbulb-outline",
         command_code=IRCandlesCode.STEADY,
     ),
-    # IRCandlesButtonDescription(
-    #     key="timer_2h",
-    #     translation_key="timer_2h",
-    #     icon="mdi:timer-outline",
-    #     command_code=IRCandlesCode.TIMER_2H,
-    # ),
+    IRCandlesButtonDescription(
+        key="timer_2h",
+        translation_key="timer_2h",
+        icon="mdi:timer-outline",
+        command_code=IRCandlesCode.TIMER_2H,
+    ),
     IRCandlesButtonDescription(
         key="timer_4h",
         translation_key="timer_4h",
         icon="mdi:timer-outline",
         command_code=IRCandlesCode.TIMER_4H,
     ),
-    # IRCandlesButtonDescription(
-    #     key="timer_6h",
-    #     translation_key="timer_6h",
-    #     icon="mdi:timer-outline",
-    #     command_code=IRCandlesCode.TIMER_6H,
-    # ),
+    IRCandlesButtonDescription(
+        key="timer_6h",
+        translation_key="timer_6h",
+        icon="mdi:timer-outline",
+        command_code=IRCandlesCode.TIMER_6H,
+    ),
     IRCandlesButtonDescription(
         key="timer_8h",
         translation_key="timer_8h",
@@ -84,6 +89,10 @@ async def async_setup_entry(
     async_add_entities(
         IRCandlesButton(entry, infrared_entity_id, description)
         for description in BUTTON_DESCRIPTIONS
+        if any(
+            description.key in button
+            for button in REMOTES[entry.data[CONF_REMOTE_MODEL]]["buttons"]
+        )
     )
 
 

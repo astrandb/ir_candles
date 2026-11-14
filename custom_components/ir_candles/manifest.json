@@ -1,7 +1,7 @@
 {
   "domain": "ir_candles",
   "name": "IR Candles",
-  "categories": ["lighting.bulb_lamps"],
+  "categories": ["lighting.bulbs_lamps"],
   "codeowners": [
     "@astrandb"
   ],
