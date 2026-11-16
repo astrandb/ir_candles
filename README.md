@@ -2,9 +2,9 @@
 
 # IR Candles - Integration for Home Assistant
 
-This integration exposes LED candles with an IR blaster. It works with all IR emitters (e.g. Broadlink, ESP Home, etc) that are registered in Home Assistant. The codes emitted are reverse engineered from phusical remote controls.
+This integration exposes LED candles with an IR blaster. It works with all IR emitters (e.g. Broadlink, ESP Home, etc) that are registered in Home Assistant. The codes emitted are reverse engineered from physical remote controls.
 
-Note that the installation supports multiple blasters, but there is a fair chance that different remotes use overlapping code maps that can cause some chaos.
+Note that the installation supports multiple blasters, but there is a fair chance that different remotes use overlapping code maps that can cause some chaos if you have different brands in one room.
 
 Please also note that as the IR protocol is one-way transmit only, there is no possibility for the integration to know if the candle is on or off. However, best effort is used to keep track of assumed state.
 
