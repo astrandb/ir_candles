@@ -25,6 +25,7 @@ class IRCandlesButtonDescription(ButtonEntityDescription):
     """Describes an IR Candles button."""
 
     command_code: IRCandlesCode
+    dimmable: bool = False
 
 
 BUTTON_DESCRIPTIONS: tuple[IRCandlesButtonDescription, ...] = (
@@ -33,12 +34,14 @@ BUTTON_DESCRIPTIONS: tuple[IRCandlesButtonDescription, ...] = (
         translation_key="brightness_up",
         icon="mdi:brightness-7",
         command_code=IRCandlesCode.BRIGHTNESS_UP,
+        dimmable=True,
     ),
     IRCandlesButtonDescription(
         key="brightness_down",
         translation_key="brightness_down",
         icon="mdi:brightness-5",
         command_code=IRCandlesCode.BRIGHTNESS_DOWN,
+        dimmable=True,
     ),
     IRCandlesButtonDescription(
         key="flickering",
@@ -92,6 +95,13 @@ async def async_setup_entry(
         if any(
             description.key in button
             for button in REMOTES[entry.data[CONF_REMOTE_MODEL]]["buttons"]
+        )
+        and (
+            (
+                REMOTES[entry.data[CONF_REMOTE_MODEL]]["dimmable"]
+                and description.dimmable
+            )
+            or (not description.dimmable)
         )
     )
 

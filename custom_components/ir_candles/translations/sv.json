@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "IR Candles",
+        "description": "Välj IR-sändaren som ska användas för att styra IR Candles.",
+        "data": {
+          "infrared_entity_id": "IR-sändare",
+          "remote_model": "Fjärrkontrollmodell"
+        },
+        "data_description": {
+          "infrared_entity_id": "IR-sändarens enhet (t.ex. en BroadLink- eller ESPHome-enhet registrerad med IR-integrationen).",
+          "remote_model": "Fjärrkontrollmodellen som ska användas för IR Candles."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Denna IR-sändare är redan konfigurerad för en IR Candles-enhet.",
+      "no_emitters": "Inga IR-sändarentiteter hittades. Se till att en IR-sändare (t.ex. BroadLink, ESPHome) är inställd och registrerad med IR-integrationen först."
+    }
+  },
+  "entity": {
+    "button": {
+      "brightness_up": {
+        "name": "Ljusstyrka upp"
+      },
+      "brightness_down": {
+        "name": "Ljusstyrka ner"
+      },
+      "flickering": {
+        "name": "Fladdrande"
+      },
+      "steady": {
+        "name": "Stabil"
+      },
+      "timer_2h": {
+        "name": "Timer 2H"
+      },
+      "timer_4h": {
+        "name": "Timer 4H"
+      },
+      "timer_6h": {
+        "name": "Timer 6H"
+      },
+      "timer_8h": {
+        "name": "Timer 8H"
+      }
+    }
+  },
+  "selector": {
+    "remote_model": {
+      "options": {
+        "six_buttons": "Sex knappar",
+        "ten_buttons_rusta": "Tio knappar (Rusta)"
+      }
+    }
+  }
+}

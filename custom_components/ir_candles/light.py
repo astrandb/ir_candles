@@ -21,9 +21,7 @@ from .entity import IRCandlesEntity
 
 PARALLEL_UPDATES = 1
 
-# Each brightness IR press moves the local estimate by this amount
-# (best-effort assumed state)
-_BRIGHTNESS_STEP = 25  # ~10% of 255
+_BRIGHTNESS_STEP = 50  # ~20% of 255
 
 
 async def async_setup_entry(
@@ -32,21 +30,48 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up IR Candles light from a config entry."""
-    async_add_entities([IRCandlesLight(entry, entry.data[CONF_INFRARED_ENTITY_ID])])
+    async_add_entities([IRCandlesDim(entry, entry.data[CONF_INFRARED_ENTITY_ID])])
 
 
 class IRCandlesLight(IRCandlesEntity, LightEntity, RestoreEntity):
-    """IR Candles candle — light entity."""
+    """IR Candles candle — base entity for light."""
 
-    _attr_color_mode = ColorMode.BRIGHTNESS
     _attr_assumed_state = True
     _attr_icon = "mdi:candle"
-    # Main entity for the device — name comes from the device name alone
     _attr_name = None
 
     def __init__(self, entry: ConfigEntry, infrared_entity_id: str) -> None:
         """Initialize the light entity."""
         super().__init__(entry, infrared_entity_id, unique_id_suffix="light")
+        self._attr_color_mode = ColorMode.ONOFF
+        self._attr_is_on = False
+
+    async def async_added_to_hass(self) -> None:
+        """Restore last known state on startup."""
+        await super().async_added_to_hass()
+        if (state := await self.async_get_last_state()) is not None:
+            self._attr_is_on = state.state == STATE_ON
+
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        """Turn on brightness."""
+        await self._send_command(IRCandlesCode.ON)
+        self._attr_is_on = True
+        self.async_write_ha_state()
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        """Turn off the candle."""
+        await self._send_command(IRCandlesCode.OFF)
+        self._attr_is_on = False
+        self.async_write_ha_state()
+
+
+class IRCandlesDim(IRCandlesLight):
+    """IR Candles - dimmable light entity."""
+
+    def __init__(self, entry: ConfigEntry, infrared_entity_id: str) -> None:
+        """Initialize the light entity."""
+        super().__init__(entry, infrared_entity_id)
+        self._attr_color_mode = ColorMode.BRIGHTNESS
         self._attr_is_on = False
         self._attr_brightness: int = 255
         self._attr_supported_color_modes = {ColorMode.BRIGHTNESS}
@@ -77,10 +102,4 @@ class IRCandlesLight(IRCandlesEntity, LightEntity, RestoreEntity):
             await self._send_command(IRCandlesCode.ON)
 
         self._attr_is_on = True
-        self.async_write_ha_state()
-
-    async def async_turn_off(self, **kwargs: Any) -> None:
-        """Turn off the candle."""
-        await self._send_command(IRCandlesCode.OFF)
-        self._attr_is_on = False
         self.async_write_ha_state()

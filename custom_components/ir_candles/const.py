@@ -12,7 +12,7 @@ DOMAIN = "ir_candles"
 CONF_INFRARED_ENTITY_ID = "infrared_entity_id"
 CONF_REMOTE_MODEL = "remote_model"
 
-_BRIGHTNESS_NEC_ADDRESS = 0x08B7  # Extended NEC — no address parity
+_BRIGHTNESS_NEC_ADDRESS = 0x00  # Extended NEC — no address parity 08B7
 
 
 class IRCandlesCode(IntEnum):
@@ -21,20 +21,15 @@ class IRCandlesCode(IntEnum):
     ON = 0x00
     OFF = 0x02
     FLICKERING = 0x10
+    FLICKERING_10 = 0x0C
     STEADY = 0x12
+    STEADY_10 = 0x0E
+    TIMER_2H = 0x04
     TIMER_4H = 0x08
+    TIMER_6H = 0x08
     TIMER_8H = 0x0A
-    BRIGHTNESS_UP = 0x82
-    BRIGHTNESS_DOWN = 0x80
-
-    # ON = 0x5E
-    # OFF = 0x0C
-    # BRIGHTNESS_UP = 0x12
-    # BRIGHTNESS_DOWN = 0x10
-    TIMER_2H = 0x46
-    # TIMER_4H = 0x40
-    TIMER_6H = 0x15
-    # TIMER_8H = 0x19
+    BRIGHTNESS_UP = 0x12
+    BRIGHTNESS_DOWN = 0x10
 
     def to_command(self) -> NECCommand:
         """Return a NECCommand for this button press."""
@@ -52,7 +47,11 @@ REMOTES = {
             {"flickering": IRCandlesCode.FLICKERING},
             {"steady": IRCandlesCode.STEADY},
         ],
-        "light": [{"on": IRCandlesCode.ON}, {"off": IRCandlesCode.OFF}],
+        "dimmable": False,
+        "light": [
+            {"on": IRCandlesCode.ON},
+            {"off": IRCandlesCode.OFF},
+        ],
     },
     "ten_buttons_rusta": {
         "buttons": [
@@ -60,11 +59,12 @@ REMOTES = {
             {"timer_4h": IRCandlesCode.TIMER_4H},
             {"timer_6h": IRCandlesCode.TIMER_6H},
             {"timer_8h": IRCandlesCode.TIMER_8H},
-            {"flickering": IRCandlesCode.FLICKERING},
-            {"steady": IRCandlesCode.STEADY},
+            {"flickering": IRCandlesCode.FLICKERING_10},
+            {"steady": IRCandlesCode.STEADY_10},
             {"brightness_up": IRCandlesCode.BRIGHTNESS_UP},
             {"brightness_down": IRCandlesCode.BRIGHTNESS_DOWN},
         ],
+        "dimmable": True,
         "light": [
             {"on": IRCandlesCode.ON},
             {"off": IRCandlesCode.OFF},
