@@ -13,7 +13,7 @@ commit = false
 
 "**/manifest.json" = ['"version": "{version}"']
 
-"custom_components/*/const.py" = ['^VERSION = "{version}"']
+# "custom_components/*/const.py" = ['^VERSION = "{version}"']
 
 ".github/release-drafter.yml" = [
     # 'name-template: "Example title - "v{version}"',
