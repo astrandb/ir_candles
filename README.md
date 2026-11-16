@@ -1,60 +1,35 @@
-# Notice
+[![IR Candles](https://img.shields.io/github/v/release/astrandb/ir_candles)](https://github.com/astrandb/ir_candles/releases/latest) [![hacs_badge](https://img.shields.io/badge/HACS-Custom-blue.svg)](https://github.com/hacs/integration) ![Validate with hassfest](https://github.com/astrandb/ir_candles/workflows/Validate%20with%20hassfest/badge.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2026.svg) [![IR Candles_downloads](https://img.shields.io/github/downloads/astrandb/ir_candles/latest/total)](https://github.com/astrandb/ir_candles)
 
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
+# IR Candles - Integration for Home Assistant
 
-HAVE FUN! 😎
+This integration exposes LED candles with an IR blaster. It works with all IR emitters (e.g. Broadlink, ESP Home, etc) that are registered in Home Assistant. The codes emitted are reverse engineered from phusical remote controls.
 
-## Why?
+Note that the installation supports multiple blasters, but there is a fair chance that different remotes use overlapping code maps that can cause some chaos.
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+Please also note that as the IR protocol is one-way transmit only, there is no possibility for the integration to know if the candle is on or off. However, best effort is used to keep track of assumed state.
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+## Installation
 
-## What?
+### Preferred download method
 
-This repository contains multiple files, here is a overview:
+- Install your IR blaster first.
+- Use Marketplace in Home Assistant, add this repo as a custom repository (Add from link button) and install "IR Candles" integration.
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/renovate.json` | Dependency update configuration for Renovate (enabled by default). | [Documentation](https://docs.renovatebot.com/configuration-options/)
-`.github/_dependabot.yml` | Dependency update configuration for Dependabot (disabled, see "Dependency updates" below). | [Documentation](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`custom_components/ir_candles/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements_dev.txt` | Python packages used for development/testing this integration (also installs lint tooling via `requirements_lint.txt`). | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
-`requirements_lint.txt` | Python packages used to lint this integration (installed by the Lint CI job). | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
-`requirements_common.txt` | Python packages common to CI and local dev, installed first so any pip upgrade completes before other dependencies (e.g. a modern pip). | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+### Manual download method
 
-## Dependency updates
+- Copy all files from custom_components/ir_candles in this repo to your config custom_components/ir_candles
+- Restart Home Assistant
 
-This template ships with configuration for **two** dependency update tools. Pick
-**one** and remove or disable the other:
+### Setup
 
-- **Renovate** (`.github/renovate.json`) is enabled by default.
-- **Dependabot** (`.github/_dependabot.yml`) is included but disabled — the `_`
-  prefix means GitHub ignores it. To use Dependabot instead, rename the file
-  back to `.github/dependabot.yml` and delete `.github/renovate.json`.
+Goto Integrations->Add and select "IR Candles"
 
-## How?
+Follow instructions to setup the integration.
 
-1. Create a new repository in GitHub, using this repository as a template by clicking the "Use this template" button in the GitHub UI.
-1. Open your new repository in Visual Studio Code devcontainer (Preferably with the "`Dev Containers: Clone Repository in Named Container Volume...`" option).
-1. Rename all instances of the `ir_candles` to `custom_components/<your_integration_domain>` (e.g. `custom_components/awesome_integration`).
-1. Rename all instances of the `Integration Blueprint` to `<Your Integration Name>` (e.g. `Awesome Integration`).
-1. Run the `scripts/develop` to start HA and test out your new integration.
+## Disclaimer
 
-## Next steps
+The package and its author are not affiliated with candle manufacturers. Use at your own risk.
 
-These are some next steps you may want to look into:
-- Add tests to your integration, [`pytest-homeassistant-custom-component`](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) can help you get started.
-- Add brand images (logo/icon).
-- Create your first release.
-- Share your integration on the [Home Assistant Forum](https://community.home-assistant.io/).
-- Submit your integration to [HACS](https://hacs.xyz/docs/publish/start).
+## License
+
+The package is released under the MIT license.
