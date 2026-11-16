@@ -11,5 +11,5 @@
   "integration_type": "device",
   "iot_class": "assumed_state",
   "issue_tracker": "https://github.com/astrandb/ir_candles/issues",
-  "version": "2026.11.0"
+  "version": "2026.11.1"
 }
